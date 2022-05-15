@@ -46,6 +46,10 @@ public class Sudoku extends JPanel
 
             add(buttons[i]); //adds this button to JPanel (note: no need for JPanel.add(...)
             //because this whole class is a JPanel already
+          if(i%3 == 2 && i%9<8){
+            add(new JSeparator(SwingConstants.VERTICAL));
+          }
+
         }
 
         printSudoku(mat);
@@ -284,3 +288,4 @@ public class Sudoku extends JPanel
     }
 
 }
+
