@@ -8,7 +8,7 @@ public class Sudoku extends JPanel
 {
     private int[] mat[];
     private int[] answer[];
-    private JButton buttons[];
+    private JButton[] buttons;
     private int N; // number of columns/rows.
     private int SRN; // square root of N
     private int K; // No. Of missing digits
@@ -20,7 +20,7 @@ public class Sudoku extends JPanel
         this.N = N;
         this.K = K;
         this.frame = frame;
-        JButton buttons[] = new JButton[N*N];
+        buttons = new JButton[N*N];
         // Compute square root of N
         Double SRNd = Math.sqrt(N);
         SRN = SRNd.intValue();
@@ -41,27 +41,30 @@ public class Sudoku extends JPanel
             }
           buttons[i].putClientProperty("column", i%N);
           buttons[i].putClientProperty("row", i/N);
+          if(i/N < 3 || i/N >5){
+            if(i%N<3 || i %N > 5){
+              buttons[i].setBackground(Color.gray);
+            }
+          }
+          else{
+            if(!(i%N<3 || i %N > 5)){
+              buttons[i].setBackground(Color.gray);
+            }
+          }
 
 
 
             add(buttons[i]); //adds this button to JPanel (note: no need for JPanel.add(...)
             //because this whole class is a JPanel already
-          if(i%3 == 2 && i%9<8){
-            add(new JSeparator(SwingConstants.VERTICAL));
-          }
+
+         
 
         }
 
-        printSudoku(mat);
-        printSudoku(answer);
+        System.out.println(strSudoku(mat));
+
     }
-    public void resetButtons()
-    {
-        for(int i = 0; i <= 8; i++)
-        {
-            buttons[i].setText("");
-        }
-    }
+    
 
     // Sudoku Generator
     public void fillValues()
@@ -222,22 +225,23 @@ public class Sudoku extends JPanel
     }
 
     // Print sudoku
-    public void printSudoku(int[][] arr)
+    public String strSudoku(int[][] arr)
     {
+        String output = "";
         for (int i = 0; i<N; i++)
         {
             for (int j = 0; j<N; j++){
-                System.out.print(arr[i][j] + " ");
+                output+=(arr[i][j] + " ");
                 if(j%3 == 2 && j>0 && j<N-1){
-                    System.out.print("|");
+                    output+=("|");
                 }
             }
             if(i%3 == 2 && i>0 && i<N-1){
-                System.out.print("\n-------------------");
+                output+=("\n-------------------");
             }
-            System.out.println();
+            output+="\n";
         }
-        System.out.println();
+        return output;
     }
 
     private class buttonListener implements ActionListener
@@ -266,13 +270,23 @@ public class Sudoku extends JPanel
             buttonClicked.setText(textToShow);
           }
           if(checkForWin()){
-            JOptionPane.showMessageDialog(null, "Game Over.");
+            int code = JOptionPane.showConfirmDialog(null, "Game Over.");
+                if(code!=2){
+                  System.exit(0);
+                }
           }
 
         }
 
         public boolean checkForWin()
         {
+          for(int[] row: mat){
+            for(int cell: row){
+              if(cell == 0){
+                return false;
+              }
+            }
+          }
           for (int i = 0; i<N; i++)
         {
             for (int j = 0; j<N; j++){
@@ -288,4 +302,5 @@ public class Sudoku extends JPanel
     }
 
 }
+
 
