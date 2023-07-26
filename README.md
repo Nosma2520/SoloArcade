@@ -34,6 +34,6 @@ java Main
    - Take turns placing 'X' and 'O' symbols on the 3x3 grid.
    - The first player to align three of their symbols in a horizontal, vertical, or diagonal row wins.
 ## License
-This Game Selector program is licensed under the [Apache License 2.0](https://github.com/Nosma2520/SoloArcade/blob/main/LICENSE)
+This Game Selector program is licensed under the [Apache-2.0 License](https://github.com/Nosma2520/SoloArcade/blob/main/LICENSE)
 
 Enjoy the games! If you encounter any issues or have suggestions for improvement, please feel free to open an issue. Happy gaming! 🕹️
